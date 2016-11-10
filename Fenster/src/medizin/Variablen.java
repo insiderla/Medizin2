@@ -7,5 +7,6 @@ public class Variablen {
 	public static String [][] Verkn = new String [50][5];
 	public static String [] Primärschlüssel = new String [2];
 	public static String Pfad =""; //Speicherpfad
-	public static int Zaehler_Windows = 1;
+	
+	public static int anzahl_Tabellen = 0;
 }

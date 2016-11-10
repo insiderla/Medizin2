@@ -22,12 +22,7 @@ import org.eclipse.swt.widgets.CoolBar;
 public class Window {
 
 	protected Shell shell;
-	public static Text txt_DBServer;
-	public static Text txt_DBPort;
-	public static Text txt_DBName;
-	public static Text txt_DBBenutzer;
-	public static Text txt_DBPasswort;
-	public static Text txt_Datei;
+
 	private Table table;
 
 	/**
@@ -296,6 +291,8 @@ public class Window {
 		});
 		btnZurck.setText("Zurück");
 		btnZurck.setEnabled(false);
+		
+		
 		btnVerbindungTesten.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDown(MouseEvent e) {

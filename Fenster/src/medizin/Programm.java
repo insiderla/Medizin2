@@ -41,6 +41,7 @@ public static void start() {
             System.out.print(ArrayTabellennamen[k]+"|");
         }
         System.out.println();
+        
 
         
            

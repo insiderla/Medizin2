@@ -36,7 +36,7 @@ public class Verbindung {
         
     }
 
-        public static int anzahl()
+        public static void anzahl()
         {
             
             int zaehler = 0;
@@ -68,7 +68,7 @@ public class Verbindung {
 			//System.out.println("***** FEHLERMELDUNG *****"+e);
 			System.exit(0);
 		}
-        return zaehler; 
+        Variablen.anzahl_Tabellen=zaehler;
 
             
         }
@@ -145,7 +145,7 @@ public class Verbindung {
 
             
         }
-                public static int zeilenGroup(String SQL,String Primärschlüssel[])
+        public static int zeilenGroup(String SQL,String Primärschlüssel[])
         {
             String Befehl = "SELECT COUNT(*) AS Anzahl " + SQL + " GROUP BY "+Primärschlüssel[0]+"."+Primärschlüssel[1]+" ORDER BY Anzahl ASC";
             //System.out.println(Befehl);
@@ -277,6 +277,44 @@ public class Verbindung {
                         while (rs.next())
                             { 
                                 Namen[zaehler] =Tabelle+"."+ rs.getString(1);
+                                zaehler++;
+                               
+                            }
+                            rs.close();
+                            stat.close();
+                            con.close();
+                        
+			
+		}
+		catch(Exception e){
+			Datenbank.Error.open("Fehler Datenbankverbindung \n", e);
+			//System.out.println("***** FEHLERMELDUNG *****"+e);
+			System.exit(0);
+		}
+            
+        return Namen; 
+
+            
+        }
+         public static String [] Spaltenname2(String Tabelle, String []Namen)
+        {
+           
+            
+            try {
+			
+			Class.forName("com.mysql.jdbc.Driver").newInstance();
+			
+			Connection con = DriverManager.getConnection(
+					"jdbc:mysql://"+Variablen.VDaten[0]+":"+Variablen.VDaten[1]+"/"+Variablen.VDaten[2], Variablen.VDaten[3],Variablen.VDaten[4]);
+					
+			con.setReadOnly(true);
+			Statement stat = con.createStatement();
+			ResultSet rs = stat.executeQuery("Show Columns from "+Tabelle);
+                        int zaehler=0;
+                        
+                        while (rs.next())
+                            { 
+                                Namen[zaehler] =rs.getString(1);
                                 zaehler++;
                                
                             }
