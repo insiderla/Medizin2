@@ -18,7 +18,7 @@ public static void start() {
         laden();       
 //SQL_Befehl_back
 
-        String SQL = Befehl.SQL_hinten(Variablen.Primärschlüssel, Variablen.Verkn);
+        String SQL = Befehl.SQL_hinten(medizin.Variablen.Primärschlüssel, medizin.Variablen.Verkn);
         //System.out.println("hinterer SQL-Befehl teil:");
         //System.out.println(SQL);
     
@@ -26,21 +26,22 @@ public static void start() {
  //Verbindung
         
 ///Wie viele Tabellen
-        int AnzahlTabellen = Verbindung.anzahl();
-        System.out.println("Tabellenanzahl: "+ AnzahlTabellen);
+        Verbindung.anzahl();
+        int AnzahlTabellen = medizin.Variablen.anzahl_Tabellen; 
+        //System.out.println("Tabellenanzahl: "+ AnzahlTabellen);
         
 //Array Tabellennamen initialisieren
         String [] ArrayTabellennamen = new String [AnzahlTabellen]; 
         
       
 //Tabellennamen
-        System.out.println("Tabellen vorhanden:");
+        //System.out.println("Tabellen vorhanden:");
         ArrayTabellennamen = Verbindung.Tabellennamen(ArrayTabellennamen);
         for(int k=0;k<AnzahlTabellen;k++)
         {
             System.out.print(ArrayTabellennamen[k]+"|");
         }
-        System.out.println();
+        //System.out.println();
         
 
         
@@ -50,22 +51,22 @@ public static void start() {
         System.out.println("Anzahl Zeilen Gesamt: "+AnzahlZeilen);
         int AnzahlSpalten = Verbindung.spalten(SQL);
         System.out.println("Anzahl Spalten Gesamt: "+AnzahlSpalten);
-        int AnzahlZeilenGroup = Verbindung.zeilenGroup(SQL,Variablen.Primärschlüssel);
+        int AnzahlZeilenGroup = Verbindung.zeilenGroup(SQL,medizin.Variablen.Primärschlüssel);
         System.out.println("Anzahl Zeilen Gruppiert: "+AnzahlZeilenGroup);
 
 // Spaltennamen auslesen
         int BSP=1;
-        String [][] Namen = new String [Variablen.Vergleichdaten.length][AnzahlSpalten];
-        String [] []Spaltennamen = new String[(Variablen.Vergleichdaten.length*AnzahlSpalten)][3];
+        String [][] Namen = new String [medizin.Variablen.Vergleichdaten.length][AnzahlSpalten];
+        String [] []Spaltennamen = new String[(medizin.Variablen.Vergleichdaten.length*AnzahlSpalten)][3];
         int zaehler=0;
         for (int k=0;k<Spaltennamen.length;k++)
         {
             Spaltennamen[k][1]="3";
             Spaltennamen[k][2]=null;
         }
-        for(int k = 0;Variablen.Vergleichdaten[k] != null;k++)
+        for(int k = 0;medizin.Variablen.Vergleichdaten[k] != null;k++)
         {
-            Namen[k] = Verbindung.Spaltenname(Variablen.Vergleichdaten[k], Namen[k]);
+            Namen[k] = Verbindung.Spaltenname(medizin.Variablen.Vergleichdaten[k], Namen[k]);
             
         } 
         for(int k = 0;Namen[k][0]!=null;k++)
@@ -119,9 +120,9 @@ public static void start() {
 //Array Daten initialisieren
         //String [][] Daten = new String [AnzahlZeilen+1][AnzahlSpalten];
         //Daten = Verbindung.Daten_holen(Daten,SQL);
-        int Schluesselanzahl = Verbindung.Schluesselanzahl(SQL, Variablen.Primärschlüssel);
+        int Schluesselanzahl = Verbindung.Schluesselanzahl(SQL, medizin.Variablen.Primärschlüssel);
         String Schluessel [] = new String [Schluesselanzahl];
-        Schluessel = Verbindung.Schlusselnamen(SQL,Schluessel, Variablen.Primärschlüssel);
+        Schluessel = Verbindung.Schlusselnamen(SQL,Schluessel, medizin.Variablen.Primärschlüssel);
         
         System.out.println("Fertig!!!!");
         // Array füllen
@@ -130,7 +131,7 @@ public static void start() {
         
 //Datei schreiben
         
-        try{Verbindung.schreiben(SQL,Spaltennamen,AnzahlSpalten,AnzahlZeilenGroup,Variablen.Pfad,Schluessel,Variablen.Primärschlüssel);}
+        try{Verbindung.schreiben(SQL,Spaltennamen,AnzahlSpalten,AnzahlZeilenGroup,medizin.Variablen.Pfad,Schluessel,medizin.Variablen.Primärschlüssel);}
         catch(Exception e)
         {System.out.println("***** FEHLERMELDUNG *****"+e);}
         

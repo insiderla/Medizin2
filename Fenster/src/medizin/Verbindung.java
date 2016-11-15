@@ -296,9 +296,9 @@ public class Verbindung {
 
             
         }
-         public static String [] Spaltenname2(String Tabelle, String []Namen)
+         public static String [] Spaltenname2(String Tabelle, int zaehler2 )
         {
-           
+        	 String []Namen = new String[zaehler2];
             
             try {
 			

@@ -21,6 +21,7 @@ import medizin.Verbindung;
 
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.custom.CCombo;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.custom.TableEditor;
 import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.ScrollBar;
@@ -28,14 +29,15 @@ import org.eclipse.swt.widgets.CoolBar;
 
 public class Verknuepfungen {
 	
-	private static Combo[] combo0 = new Combo[50];
-	private static Combo[] combo1 = new Combo[50];
-	private static Combo[] combo2 = new Combo[50];
-	private static Combo[] combo3 = new Combo[50];
-	private static Label[] lblJoin = new Label[50];
+	//private static Combo[] combo0 = new Combo[50];
+	//private static Combo[] combo1 = new Combo[50];
+	//private static Combo[] combo2 = new Combo[50];
+	//private static Combo[] combo3 = new Combo[50];
+	//private static Label[] lblJoin = new Label[50];
+	private static Combo combi1;
+	private static Combo combi2;
 	
 	private static int visible_zaehler = 1;
-	private static int i = 0;
 	
 	
 	private static Composite Verknuepfungen;
@@ -49,55 +51,36 @@ public class Verknuepfungen {
 		group_Verknuepfungen.setBounds(10, 10, 760, 507);
 		group_Verknuepfungen.setText("Verknüpfungen:");
 		
+		combi1 = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
+		combi1.setBounds(5, 64, 170, 22);
+		combi1.setVisible(true);
+		
+		combi2 = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
+		combi2.setBounds(175, 64, 170, 22);
+		combi2.setVisible(true);
+		combi2.setEnabled(false);
+		
+		combi1.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				
+				combi1.setEnabled(true);
+				int zaehler = Verbindung.spalten("from "+ combi1.getText());
+				combi2.setItems(Verbindung.Spaltenname2(combi1.getText(), zaehler));
+				combi2.setEnabled(true);
 
-		for (i =0; i<50;i++)
-		{
-			combo0[i] = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
-			combo0[i].setBounds(5, 74+(30*i), 170, 22);
-			combo0[i].setVisible(false);
-			
-			//System.out.println(i);
-			combo0[i].addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					
-					System.out.println(((Combo)e.getSource()).getText());
-
-				}
-	      });
-			
-			combo1[i] = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
-			combo1[i].setBounds(175, 74+(30*i), 170, 22);
-			combo1[i].setVisible(false);
-			combo1[i].setEnabled(false);
-			
-			
-			lblJoin[i] = new Label(group_Verknuepfungen, SWT.NONE);
-			lblJoin[i].setBounds(360, 76+(30*i), 80, 22);
-			lblJoin[i].setText("JOIN");
-			lblJoin[i].setVisible(false);
-			
-			
-			combo2[i] = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
-			combo2[i].setBounds(415, 74+(30*i), 170, 22);
-			combo2[i].setVisible(false);
-			combo0[i].addSelectionListener(new SelectionAdapter() {
-				@Override
-				public void widgetSelected(SelectionEvent e) {
-					
-					//System.out.println(combo.getText());
-
-				}
-			});
-			
-			combo3[i] = new Combo(group_Verknuepfungen, SWT.READ_ONLY);
-			combo3[i].setBounds(585, 74+(30*i), 170, 22);
-			combo3[i].setVisible(false);
-			combo3[i].setEnabled(false);
-			
-		}
-		ScrollBar sb = Verknuepfungen.getVerticalBar();
-		ScrollBar sb2 = group_Verknuepfungen.getVerticalBar();
+			}
+		 });
+		
+		
+		
+		Label Primärschlüssel = new Label(group_Verknuepfungen, SWT.NONE);
+		Primärschlüssel.setBounds(360, 66, 200, 22);
+		Primärschlüssel.setText("Primärschlüssel");
+		Primärschlüssel.setVisible(true);
+		
+		VerknZusatz.BoxBau(group_Verknuepfungen);
+	
 		
 		Button button = new Button(group_Verknuepfungen, SWT.NONE);
 		button.addMouseListener(new MouseAdapter() {
@@ -106,19 +89,19 @@ public class Verknuepfungen {
 				if (visible_zaehler<49)
 				{
 					
-					combo0[visible_zaehler].setVisible(true);
+					VerknZusatz.combo0[visible_zaehler].setVisible(true);
 					//combo2.setEnabled(false);
 					
-					combo1[visible_zaehler].setVisible(true);
+					VerknZusatz.combo1[visible_zaehler].setVisible(true);
 					
-					lblJoin[visible_zaehler].setVisible(true);
+					VerknZusatz.lblJoin[visible_zaehler].setVisible(true);
 					
 
-					combo2[visible_zaehler].setVisible(true);
+					VerknZusatz.combo2[visible_zaehler].setVisible(true);
 					//combo2.setEnabled(false);
 					
 
-					combo3[visible_zaehler].setVisible(true);
+					VerknZusatz.combo3[visible_zaehler].setVisible(true);
 					
 					visible_zaehler++;
 				}
@@ -141,11 +124,11 @@ public class Verknuepfungen {
 				if (visible_zaehler!=1)
 				{
 					visible_zaehler--;
-					combo0[visible_zaehler].setVisible(false);
-					combo1[visible_zaehler].setVisible(false);
-					lblJoin[visible_zaehler].setVisible(false);
-					combo2[visible_zaehler].setVisible(false);
-					combo3[visible_zaehler].setVisible(false);
+					VerknZusatz.combo0[visible_zaehler].setVisible(false);
+					VerknZusatz.combo1[visible_zaehler].setVisible(false);
+					VerknZusatz.lblJoin[visible_zaehler].setVisible(false);
+					VerknZusatz.combo2[visible_zaehler].setVisible(false);
+					VerknZusatz.combo3[visible_zaehler].setVisible(false);
 					
 					
 				}
@@ -160,34 +143,73 @@ public class Verknuepfungen {
 		});
 		button_1.setBounds(110, 10, 94, 28);
 		button_1.setText("-");
-		combo0[0].setVisible(true);
-		combo1[0].setVisible(true);
-		lblJoin[0].setVisible(true);
-		combo2[0].setVisible(true);
-		combo3[0].setVisible(true);
+		VerknZusatz.combo0[0].setVisible(true);
+		VerknZusatz.combo1[0].setVisible(true);
+		VerknZusatz.lblJoin[0].setVisible(true);
+		VerknZusatz.combo2[0].setVisible(true);
+		VerknZusatz.combo3[0].setVisible(true);
 		
 	}
 
 	public static void initialisieren(String [] Tabellennamen)
 	{
+		combi1.setItems(Tabellennamen);
 		for (int i=0;i<49;i++)
 		{
-			combo0[i].setItems(Tabellennamen);
-			combo2[i].setItems(Tabellennamen);
+			VerknZusatz.combo0[i].setItems(Tabellennamen);
+			VerknZusatz.combo2[i].setItems(Tabellennamen);
 		}
 	}
+	
 	public static void speichern()
 	{
-		//TODO
+		medizin.Variablen.Primärschlüssel[0] = combi1.getText();
+		medizin.Variablen.Primärschlüssel[1] = combi2.getText();
 		
+		
+		for (int i=0;i<50;i++)
+		{
+			if (VerknZusatz.combo0[i].isVisible())
+			{
+				medizin.Variablen.Verkn[i][0] = VerknZusatz.combo0[i].getText();
+				medizin.Variablen.Verkn[i][1] = VerknZusatz.combo1[i].getText();
+				medizin.Variablen.Verkn[i][3] = VerknZusatz.combo2[i].getText();
+				medizin.Variablen.Verkn[i][4] = VerknZusatz.combo3[i].getText();
+				
+			}
+		}
 		Variablen.laden_1=true;
+	    
+	    
 	}
-	
 	public static void laden()
 	{
-		//TODO
+		for (int i=0;i<50;i++)
+		{
+			VerknZusatz.combo0[i].setVisible(false);
+			VerknZusatz.combo1[i].setVisible(false);
+			VerknZusatz.combo2[i].setVisible(false);
+			VerknZusatz.combo3[i].setVisible(false);
+			
+			if(medizin.Variablen.Verkn[i][0]!= "")
+			{
+				VerknZusatz.combo0[i].setText(medizin.Variablen.Verkn[i][0]);
+				VerknZusatz.combo1[i].setText(medizin.Variablen.Verkn[i][1]);
+				VerknZusatz.combo2[i].setText(medizin.Variablen.Verkn[i][3]);
+				VerknZusatz.combo3[i].setText(medizin.Variablen.Verkn[i][4]);
+				VerknZusatz.combo0[i].setVisible(true);
+				VerknZusatz.combo1[i].setVisible(true);
+				VerknZusatz.combo2[i].setVisible(true);
+				VerknZusatz.combo3[i].setVisible(true);
+				
+			}
+			
+		}
+
 
 	}
+
+
 	public static void visible_true()
 	{
 		Verknuepfungen.setVisible(true);

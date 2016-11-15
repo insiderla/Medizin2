@@ -216,13 +216,7 @@ public class Window {
 		group_Datei.setBounds(10, 10, 760, 507);
 		group_Datei.setText("Speicherort");
 		
-		Label lblDatei = new Label(group_Datei, SWT.NONE);
-		lblDatei.setBounds(30, 30, 100, 14);
-		lblDatei.setText("Dateipfad:");
 		
-		txt_Datei = new Text(group_Datei, SWT.BORDER);
-		txt_Datei.setBounds(136, 27, 500, 19);
-		txt_Datei.setText(medizin.Variablen.Pfad);
 		
 		final Button btnWeiter = new Button(shell, SWT.NONE);
 		btnWeiter.setBounds(596, 540, 94, 28);

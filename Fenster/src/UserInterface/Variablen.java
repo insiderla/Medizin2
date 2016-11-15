@@ -14,5 +14,6 @@ public class Variablen {
 	public static int Zaehler_Windows = 1;
 	
 	public static boolean laden_0, laden_1, laden_2, laden_3 = false;
+	public static String [] []Spaltennamen = new String [50][3] ;
 
 }

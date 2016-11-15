@@ -32,6 +32,7 @@ public class Beispiel {
 	}
 	public static void Verknüpfungen()
 	{
+
 		if(BSP==1)
         {
        

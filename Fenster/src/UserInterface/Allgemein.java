@@ -3,6 +3,8 @@ package UserInterface;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Shell;
 
+import medizin.Befehl;
+import medizin.Variablen;
 import medizin.Verbindung;
 
 import org.eclipse.swt.SWT;
@@ -25,50 +27,50 @@ public class Allgemein {
 			@Override
 			public void mouseDown(MouseEvent e) {
 				
-				Variablen.Zaehler_Windows++;
-				if (Variablen.Zaehler_Windows==2)
+				UserInterface.Variablen.Zaehler_Windows++;
+				if (UserInterface.Variablen.Zaehler_Windows==2)
 				{
 					Datenbank.speichern();
 					Datenbank.visible_false();
-					if (Variablen.laden_1==true)
+					Verbindung.anzahl();
+					String [] table = new String [medizin.Variablen.anzahl_Tabellen];
+					table = medizin.Verbindung.Tabellennamen(table);
+					Verknuepfungen.initialisieren(table);
+					if (UserInterface.Variablen.laden_1==true)
 					{
 						Verknuepfungen.laden();
-					}
-					if (Variablen.laden_1==false)
-					{
-						Verbindung.anzahl();
-						//System.out.println(medizin.Variablen.anzahl_Tabellen);
-						String [] table = new String [medizin.Variablen.anzahl_Tabellen];
-						table = medizin.Verbindung.Tabellennamen(table);
-						//System.out.println(table[0]);
-						Verknuepfungen.initialisieren(table);
 					}
 					Verknuepfungen.visible_true();
 					
 				}
-				if (Variablen.Zaehler_Windows==3)
+				if (UserInterface.Variablen.Zaehler_Windows==3)
 				{
 					Verknuepfungen.speichern();
 					Verknuepfungen.visible_false();
-					if (Variablen.laden_2==true)
+					medizin.Beispiel.Primärschlüssel();
+					medizin.Beispiel.Verknüpfungen();
+					Spalten.initialisieren();
+					Spalten.laden();
+					if (UserInterface.Variablen.laden_2==true)
 					{
 						Spalten.laden();
 					}
 					Spalten.visible_true();
 				}
-				if (Variablen.Zaehler_Windows==4)
+				if (UserInterface.Variablen.Zaehler_Windows==4)
 				{
 					Spalten.visible_false();
 					Spalten.speichern();
-					if (Variablen.laden_3==true)
+					if (UserInterface.Variablen.laden_3==true)
 					{
 						Speicherort.laden();
 					}
 					Speicherort.visible_true();
 					btnWeiter.setText("Fertig");
 				}
-				if (Variablen.Zaehler_Windows==5)
+				if (UserInterface.Variablen.Zaehler_Windows==5)
 				{
+					//Speicherort.speichern();
 					medizin.Programm.start();
 					//Error.open2("Fertig");
 					System.exit(0);
